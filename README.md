@@ -1,2 +1,2 @@
 # sam-walsh.github.io
-portfolio &amp; blog
+portfolio &amp; personal blog
