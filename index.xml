@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>{year}</copyright>
-    <lastBuildDate>Sat, 27 Aug 2022 09:16:45 +0000</lastBuildDate><atom:link href="https://sam-walsh.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://sam-walsh.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>wOBA, xwOBA, Stuff&#43;, xERA -- It&#39;s all wrong!</title>
+      <link>https://sam-walsh.github.io/posts/double-plays/</link>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://sam-walsh.github.io/posts/double-plays/</guid>
+      <description>I&amp;rsquo;ve been working on sxwOBA, a baseball statistic that aims to model expected hitting outcomes based on the exit velocity, launch angle, spray direction, and batter sprint speed of a given batted-ball event.</description>
+    </item>
+    
     <item>
       <title>Markdown Cheat Sheet</title>
       <link>https://sam-walsh.github.io/posts/markdown-cheat-sheet/</link>

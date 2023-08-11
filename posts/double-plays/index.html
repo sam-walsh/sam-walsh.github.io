@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-us" class="scroll-smooth">
+    <head><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>wOBA, xwOBA, Stuff&#43;, xERA -- It&#39;s all wrong!</title>
+<meta name="description" content="A minor flaw in its calculation has major implications">
+<link rel="canonical" href="https://sam-walsh.github.io/posts/double-plays/">
+<link rel="robots" href="/robots.txt" />
+
+
+<link rel="stylesheet" href="https://sam-walsh.github.io/css/main.min.a72eaa47a2363a2fbb4ab7bfacf4f9806dbf0592be98403e1693d174db682c0d.css" integrity="sha256-py6qR6I2Oi+7Sre/rPT5gG2/BZK+mEA+FpPRdNtoLA0=">
+</head>
+    <body class="max-w-screen-md px-10 mx-auto"><header class="flex flex-col sm:flex-row items-center gap-5 sm:gap-10 pt-16 py-12">
+    
+
+<figure class="flex-none w-20 h-20 rounded-full overflow-hidden" ><a href="https://sam-walsh.github.io/"><img srcset="/img/profile-picture_huf21ee49c39f3a63b7b9f44da51a82bd8_30722_80x80_fill_q90_box_smart1.jpg 80w" src="/img/profile-picture.jpg" width="400" height="400" alt="Sam Walsh&#39;s Blog"></a></figure>
+
+    <div class="flex flex-col gap-5">
+    <a href="https://sam-walsh.github.io/">
+    
+    <h3 class="text-center sm:text-left text-4xl font-extrabold text-gray-800 ">Sam Walsh&#39;s Blog</h3>
+    
+</a>
+    <nav>
+    <ul class="flex flex-wrap justify-center uppercase text-xs font-semibold gap-7 text-gray-500 ">
+        
+        
+        <li class="hover:text-gray-500"><a href="/">Home</a></li>
+        
+        <li class="hover:text-gray-500"><a href="/posts">Posts</a></li>
+        
+        <li class="hover:text-gray-500"><a href="https://sxwoba.herokuapp.com">sxwOBA app</a></li>
+        
+        <li class="hover:text-gray-500"><a href="/tags">CV</a></li>
+        
+    </ul>
+</nav>
+    </div>
+</header><div id="content">
+<article class="flex flex-col gap-10">
+    <header class="flex flex-col gap-2">
+        <h2 class="text-4xl leading-snug font-bold text-gray-900">wOBA, xwOBA, Stuff&#43;, xERA -- It&#39;s all wrong!</h2>
+
+        <div class="text-sm font-semibold text-gray-500 flex gap-3">
+        
+<time datetime="2023-07-24 00:00:00 &#43;0000 UTC" title="2023-07-24 00:00:00 &#43;0000 UTC">
+    24 July 2023
+</time>
+        
+        </div>
+    </header>
+    <section class="content text-lg text-gray-800">
+    <p><img src="/GIDP_prob.png" alt="gidp_prob"></p>
+<p>I&rsquo;ve been working on sxwOBA, a baseball statistic that aims to model expected hitting outcomes based on the exit velocity, launch angle, spray direction, and batter sprint speed of a given batted-ball event. The metric was inspired by the statcast metric <a href="https://baseballsavant.mlb.com/leaderboard/expected_statistics">xwOBA</a> which contrastingly leaves out spray angle.</p>
+<p>As baseball savant notes:</p>
+<blockquote>
+<p>&ldquo;Expected Outcome stats help to remove defense and ballpark from the equation to express the skill shown at the moment of batted ball contact.&rdquo;</p>
+</blockquote>
+<p>This approach helps us remove some of the noise and factors that are outside of the batter or pitcher&rsquo;s control for a more robust performance estimation. Aditionally, wOBA and xwOBA are context-neutral, so baserunner state and number of outs are controlled for and hitters are credited with the relative run value of the plate appearance based on <a href="https://library.fangraphs.com/principles/linear-weights/">linear weights</a>. The use of linear weights creates consistency by valuing different offensive outcomes—like walks, singles, and home runs—based on their average historical impact on scoring runs. These metrics credit players based on the inherent value of their performance, independent of the specific game situation. So, a home run is valued the same whether it&rsquo;s a solo shot or a grand slam because these stats aim to evaluate the hitter&rsquo;s skill, not their luck of having runners on base.</p>
+<p>If you look closely at the wOBA equation, you&rsquo;ll notice that it only credits hitters for positive outcomes, such as walks or hits. All outs are treated the same, they simply add to the denominator, with no change to the numerator.</p>
+<blockquote>
+<p><img src="https://math.vercel.app/?color=white&amp;from=w%20O%20B%20A%3D%5Cfrac%7B0.7%20%5Ctimes%20%28BB%2BHBP%29%20%2B%200.9%20%5Ctimes%201B%20%2B%201.25%20%5Ctimes%202B%20%2B%201.6%20%5Ctimes%203B%20%2B%202%20%5Ctimes%20HR%7D%7BAB%2BBB%2BSF%2BHBP-IBB%7D.svg" alt="Equation"></p>
+</blockquote>
+<p>But let&rsquo;s take a step back for a second and think about double plays. They are treated the same as a single out because any events where the batter does not get on base are treated the same (+0 to the numerator, +1 to the denominator). This means that wOBA will neglect the value of <em>all</em> double plays. This is a major issue because wOBA and its variations are used in some of the most commonly used stats in the baseball community. wRC+, xwOBA, and xERA all inherit this bias from wOBA.</p>
+<p>For some players this bias is negligible, for others it is substantial. It really just depends how much of an outlier the player is in terms of their frequency of double plays. A hitter who grounds into many plays will be <em>less</em> productive than their wOBA indicates, and a hitter who grounds into few double plays will be <em>more</em> productive than their wOBA indicates.</p>
+<p>Now, wOBA is mainly an offensive stat, but it has been adapted to evaluate pitchers in several different cases and they also fail to take into account double plays. Baseball savant’s expected ERA (xERA) takes a pitcher’s xwOBA and and puts it on an ERA scale so that we can get a better picture of run prevention skill with respect to contact quality.</p>
+<p>Similarly, using wOBA to measure the effectiveness of different pitch types results in the undervaluing of pitches like sinkers and changeups, which more often result in double plays. As a result, <a href="https://blogs.fangraphs.com/go-see-the-two-seamer-before-its-gone/">some have even written off sinkers as a dying pitch</a> in recent years simply due to the fact that its main strength isn&rsquo;t captured by wOBA.</p>
+<p><img src="/pitch_gidp.png" alt="pitch_gidp"></p>
+<p>It gets worse, though. Context-neutral linear weights are not only used in wOBA and its variants, they are also used in stuff quality models in the form of expected run value (xRV). This means metrics such as Stuff+ suffer from the same flaw as wOBA.</p>
+<p>So how do we adjust for this? It&rsquo;s not exactly simple. While adding a weight for double plays to the wOBA equation would improve its accuracy in predicting runs scored, it would also break the context neutrality assumption that is foundational to wOBA.</p>
+
+    </section>
+    
+    
+    
+
+    
+    
+
+    <footer>
+        
+
+    </footer>
+</article>
+
+        </div><footer class="pt-5 pb-10 grid gap-3 sm:grid-cols-2">
+    <div class="text-xs font-semibold text-gray-500 order-2 sm:order-1 ">
+    © 2023 — <a class="hover:text-gray-500" href="https://sam-walsh.github.io/">Sam Walsh&#39;s Blog</a> <span class=" font-normal ">with</span> <a class="hover:text-gray-500" href="https://github.com/nixentric/Lowkey-Hugo-Theme" target="_blank" rel="noopener noreferrer">Lowkey</a>
+</div>
+    <div class="text-xs font-semibold text-gray-500 order-1 sm:order-2">
+    <ul class="flex sm:justify-end gap-5">
+    <li><a class="hover:text-gray-500" href="https://twitter.com/samueljwalsh" target="_blank" rel="noopener noreferrer">Twitter</a></li><li><a class="hover:text-gray-500" href="https://linkedin.com/in/sam-walsh-585750168/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a class="hover:text-gray-500" href="https://github.com/sam-walsh" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+</div>
+</footer></body>
+</html>
