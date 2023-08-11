@@ -32,7 +32,9 @@
         
         <li class="hover:text-gray-500"><a href="https://sxwoba.herokuapp.com">sxwOBA app</a></li>
         
-        <li class="hover:text-gray-500"><a href="/tags">CV</a></li>
+        <li class="hover:text-gray-500"><a href="https://linkedin.com/in/sam-walsh-585750168/">LinkedIn</a></li>
+        
+        <li class="hover:text-gray-500"><a href="https://github.com/sam-walsh">GitHub</a></li>
         
     </ul>
 </nav>
@@ -51,7 +53,7 @@
         </div>
     </header>
     <section class="content text-lg text-gray-800">
-    <p>I&rsquo;ve been working on sxwOBA, a baseball statistic that aims to model expected hitting outcomes based on the exit velocity, launch angle, spray direction, and batter sprint speed of a given batted-ball event. The metric was inspired by the statcast metric <a href="https://baseballsavant.mlb.com/leaderboard/expected_statistics">xwOBA</a> which contrastingly leaves out spray angle.</p>
+    <p>I&rsquo;ve been working on <a href="https://sxwoba.herokuapp.com/">sxwOBA</a>, a baseball statistic that aims to model expected hitting outcomes based on the exit velocity, launch angle, spray direction, and batter sprint speed of a given batted-ball event. The metric was inspired by the statcast metric <a href="https://baseballsavant.mlb.com/leaderboard/expected_statistics">xwOBA</a> which contrastingly leaves out spray angle.</p>
 <p>As baseball savant notes:</p>
 <blockquote>
 <p>&ldquo;Expected Outcome stats help to remove defense and ballpark from the equation to express the skill shown at the moment of batted ball contact.&rdquo;</p>
@@ -83,7 +85,7 @@
 <figure class='mb-5 flex justify-center'>
     <img src="/posts/double-plays/pitch_gidp_hu69d0e38a62937d4800bc92d2a2f922bd_21693_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="655" height="455" >
 </figure>
-<p>This problem extends to stuff quality models as well. These metrics evaluate pitches based on their expected run value (xRV) by learning how pitches of similar characteristics (velocity, movement, release position, etc). However, run value isn&rsquo;t a very well-defined metric in the sabermetrics community&ndash;there are different ways of calculating it with different levels of granularity and some important tradeoffs to take into account with each. The main differencs lie in how situational outs are treated.</p>
+<p>This problem extends to stuff quality models as well. These metrics evaluate pitches based on their expected run value (xRV) by learning how pitches of similar characteristics (velocity, movement, release position, etc) perform. However, run value isn&rsquo;t a very well-defined metric in the sabermetrics community&ndash;there are different ways of calculating it with different levels of granularity and some important tradeoffs to take into account with each. The main differencs lie in how situational outs are treated.</p>
 <p>The simple method, which is used in Stuff+, uses linear weights like the ones used in wOBA and treats all outs as equal to remain context-neutral. That means double plays, force outs, and sacrifice flies get replaced with the run value of a single out. This reduces some of the noise in run values so that we reward the pitcher based on how the pitch would perform in most scenarios, rather than situationally. But this really isn&rsquo;t the right way to go about things. Pitchers have a fair amount of control over the launch angle of their balls in play. Pitchers who get more ground balls will induce more double plays in the long run. These pitchers will also be more adept at avoiding sacrifice flies by keeping the ball out of the air more often. These discrepancies help explain why sinkers and changeups are so poorly rated by Stuff+.</p>
 
 
@@ -144,7 +146,7 @@
 </div>
     <div class="text-xs font-semibold text-gray-500 order-1 sm:order-2">
     <ul class="flex sm:justify-end gap-5">
-    <li><a class="hover:text-gray-500" href="https://twitter.com/samueljwalsh" target="_blank" rel="noopener noreferrer">Twitter</a></li><li><a class="hover:text-gray-500" href="https://linkedin.com/in/sam-walsh-585750168/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a class="hover:text-gray-500" href="https://github.com/sam-walsh" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    
     </ul>
 </div>
 </footer></body>
