@@ -6,25 +6,6 @@
     <description>Recent content in Tags on Sam Walsh&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>{year}</copyright>
-    <lastBuildDate>Sat, 27 Aug 2022 09:16:45 +0000</lastBuildDate><atom:link href="https://sam-walsh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Hello</title>
-      <link>https://sam-walsh.github.io/tags/hello/</link>
-      <pubDate>Sat, 27 Aug 2022 09:16:45 +0000</pubDate>
-      
-      <guid>https://sam-walsh.github.io/tags/hello/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>WhatsApp</title>
-      <link>https://sam-walsh.github.io/tags/whatsapp/</link>
-      <pubDate>Sat, 27 Aug 2022 09:16:45 +0000</pubDate>
-      
-      <guid>https://sam-walsh.github.io/tags/whatsapp/</guid>
-      <description></description>
-    </item>
-    
+    <copyright>{year}</copyright><atom:link href="https://sam-walsh.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
