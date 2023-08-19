@@ -3,8 +3,8 @@
     <head><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
-<meta name="description" content="In my last post, I discussed the drawbacks of weighted on-base average (wOBA) and how its biases seep into other popular metrics like xwOBA, xERA, wRC&#43;, and even some stuff quality models.">
+<title>Baseball&#39;s Unseen Bias: How wOBA Overlooks the True Value of Specific Outcomes</title>
+<meta name="description" content="Proof I wasn&#39;t lying in my previous post">
 <link rel="canonical" href="https://sam-walsh.github.io/posts/fixing-xwoba/">
 <link rel="robots" href="/robots.txt" />
 
@@ -42,12 +42,12 @@
 </header><div id="content">
 <article class="flex flex-col gap-10">
     <header class="flex flex-col gap-2">
-        <h2 class="text-4xl leading-snug font-bold text-gray-900"></h2>
+        <h2 class="text-4xl leading-snug font-bold text-gray-900">Baseball&#39;s Unseen Bias: How wOBA Overlooks the True Value of Specific Outcomes</h2>
 
         <div class="text-sm font-semibold text-gray-500 flex gap-3">
         
-<time datetime="0001-01-01 00:00:00 &#43;0000 UTC" title="0001-01-01 00:00:00 &#43;0000 UTC">
-    1 January 0001
+<time datetime="2023-08-18 00:00:00 &#43;0000 UTC" title="2023-08-18 00:00:00 &#43;0000 UTC">
+    18 August 2023
 </time>
         
         </div>
@@ -130,7 +130,7 @@
     <img src="/posts/fixing-xwoba/run_value_diff_hu6a72f516fd479a7951bca101f9603c66_401656_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="673" >
 </figure>
 <p>As you can see, batted balls in the ground ball range of exit velocities and launch angles are overvalued by wOBA by about 0.05 runs. This may not seem like a lot, but when you consider that your regular qualified starting pitcher has about 500 balls in play over the course of a full season, it quickly begins to add up. Similarly, groundball pitchers work to keep the ball out of the air, thereby limiting sacrifice flies. This strategy becomes even more valuable considering that wOBA undervalues the importance of fly balls within this category of batted balls, which makes ground balls more valuable in comparison.</p>
-<p>Last and probably least, the value of a bunt improves slightly. I think it’s pretty amusing that some of the trends away from “small ball”&ndash;good up-the-middle defense, keeping the ball in the infield, and bunting can be attributed to using wOBA and wRC+ (a rescaled and park and era-adjusted version) as our primary stats to measure offense in recent years.</p>
+<p>Last and probably least, the value of a bunt improves slightly. I think it’s pretty amusing that some of the trends away from “small ball”&ndash;good up-the-middle defense, keeping the ball in the infield, and less bunting can be attributed to using wOBA and wRC+ (a rescaled and park and era-adjusted version of wOBA) as our primary stats to measure offense in recent years.</p>
 <p>Taking the same nearest-neighbor approach and using it to predict the most likely pitch type based on exit velocity and launch angle yields another interesting visualization. Sinkers are the most common pitch type in the bucket of exit velocities and launch angles that wOBA undervalues most. This makes intuitive sense because a good sinker is a hard pitch to hit in the air and it is a weapon often leaned on by pitchers looking to induce a double play.</p>
 
 
