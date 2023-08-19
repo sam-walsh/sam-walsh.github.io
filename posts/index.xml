@@ -17,5 +17,14 @@
       <description>I&amp;rsquo;ve been working on sxwOBA, a baseball statistic that aims to model expected hitting outcomes based on the exit velocity, launch angle, spray direction, and batter sprint speed of a given batted-ball event.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://sam-walsh.github.io/posts/fixing-xwoba/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sam-walsh.github.io/posts/fixing-xwoba/</guid>
+      <description>In my last post, I discussed the drawbacks of weighted on-base average (wOBA) and how its biases seep into other popular metrics like xwOBA, xERA, wRC+, and even some stuff quality models.</description>
+    </item>
+    
   </channel>
 </rss>
