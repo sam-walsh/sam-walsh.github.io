@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-us" class="scroll-smooth">
+    <head><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baseball&#39;s Unseen Bias: How wOBA Overlooks the True Value of Specific Outcomes</title>
+<meta name="description" content="Proof I wasn&#39;t lying in my previous post">
+<link rel="canonical" href="https://sam-walsh.github.io/posts/fixing-xwoba/">
+<link rel="robots" href="/robots.txt" />
+
+
+<link rel="stylesheet" href="https://sam-walsh.github.io/css/main.min.247ab84563628d81430c7de4aa2fbaca06053341b6743880038163c0bbdb1294.css" integrity="sha256-JHq4RWNijYFDDH3kqi+6ygYFM0G2dDiAA4FjwLvbEpQ=">
+</head>
+    <body class="max-w-screen-md px-10 mx-auto"><header class="flex flex-col sm:flex-row items-center gap-5 sm:gap-10 pt-16 py-12">
+    
+
+<figure class="flex-none w-20 h-20 rounded-full overflow-hidden" ><a href="https://sam-walsh.github.io/"><img srcset="/img/profile-picture_hucbf2afd9e62dc6021c155b0731b41164_625734_80x80_fill_q90_box_smart1.jpg 80w" src="/img/profile-picture.jpg" width="1080" height="1080" alt="Sam Walsh&#39;s Blog"></a></figure>
+
+    <div class="flex flex-col gap-5">
+    <a href="https://sam-walsh.github.io/">
+    
+    <h3 class="text-center sm:text-left text-4xl font-extrabold text-gray-800 ">Sam Walsh&#39;s Blog</h3>
+    
+</a>
+    <nav>
+    <ul class="flex flex-wrap justify-center uppercase text-xs font-semibold gap-7 text-gray-500 ">
+        
+        
+        <li class="hover:text-gray-500"><a href="/">Home</a></li>
+        
+        <li class="hover:text-gray-500"><a href="/posts">Posts</a></li>
+        
+        <li class="hover:text-gray-500"><a href="https://sxwoba.herokuapp.com/">xwoba app</a></li>
+        
+        <li class="hover:text-gray-500"><a href="https://github.com/sam-walsh">GitHub</a></li>
+        
+        <li class="hover:text-gray-500"><a href="https://linkedin.com/in/sam-walsh-585750168/">Linkedin</a></li>
+        
+    </ul>
+</nav>
+    </div>
+</header><div id="content">
+<article class="flex flex-col gap-10">
+    <header class="flex flex-col gap-2">
+        <h2 class="text-4xl leading-snug font-bold text-gray-900">Baseball&#39;s Unseen Bias: How wOBA Overlooks the True Value of Specific Outcomes</h2>
+
+        <div class="text-sm font-semibold text-gray-500 flex gap-3">
+        
+<time datetime="2023-08-18 00:00:00 &#43;0000 UTC" title="2023-08-18 00:00:00 &#43;0000 UTC">
+    18 August 2023
+</time>
+        
+        </div>
+    </header>
+    <section class="content text-lg text-gray-800">
+    <p>In my last post, I discussed the drawbacks of weighted on-base average (wOBA) and how its biases seep into other popular metrics like xwOBA, xERA, wRC+, and even some stuff quality models. The basis of my argument was that wOBA takes an oversimplified approach to weighting different outcomes. Specifically, it weights all outs equally, leading to an undervaluing of ground balls and double plays. I showed that there is a fundamental bias in how wOBA is calculated, but that doesn’t mean much unless I show you the magnitude of that bias which is what I’m going to do today.</p>
+<h2 id="understanding-woba-and-its-shortcomings">Understanding wOBA and Its Shortcomings</h2>
+<p>The nice thing about wOBA is that it has a relatively simple formula–it’s not too hard to calculate, and it does a decent job at predicting run production. But with simplicity comes tradeoffs and biases, and unfortunately these biases aren’t evenly distributed to different batter and pitcher skillsets. In baseball, there are many different outcomes and weighting each and every one of them accurately requires very granular data and precise calculations. wOBA takes on the idea of run values, weighting plays by their average effect on scoring and then rescaling the metric to look like on-base percentage (OBP). The problem is that wOBA only weights outcomes like walks, hit by pitches, and hits. When you look at all the different possible outcomes a hitter can have, there are a lot more that have large effects on run scoring. Here are the run values from 2022 for each possible outcome (excluding triple plays).</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/run_values_hu82c4f2974d1b6b58fbc35ee1f44ae540_83025_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="532" height="628" >
+</figure>
+<p>As you can see, not all outs are created equal. Sacrifice bunts and sacrifice flies are net negative outcomes, but they’re still better than a regular out. Additionally, double plays save over three times the amount of runs that a regular out does. What kind of pitcher avoids sacrifice flies and gets a lot of double plays? If you haven’t already guessed it’s a ground ball pitcher. With wOBA, two of the main strengths of a ground ball pitcher get overlooked.</p>
+<h2 id="delving-into-xwoba-and-groundballs">Delving into xwOBA and Groundballs</h2>
+<p>Let’s go a step further by looking at expected wOBA (xwOBA). If you aren’t familiar, xwOBA is a metric that predicts the wOBA value of a batted ball based on the average from buckets of similar batted balls based on launch angle and exit velocity. This is done using a model called K-Nearest Neighbors (KNN), which does exactly what it sounds like it does (it looks at the K number of data points that are most similar and predicts wOBA as the average wOBA of those data points). I ran this model with a K of 5,000 on a dataset of nearly 1.4 million batted balls from the statcast era (dating back to 2015). Here&rsquo;s how xwOBA is influenced by exit velocity and launch angle. I&rsquo;ve rescaled it to reflect the actual run values using the process described <a href="https://library.fangraphs.com/offense/woba/">here</a>. If you look at the prominent red blob on the right, you&rsquo;ll see the range of exit velocities and launch angles where home runs occur.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/xwoba_run_value_hucd27bff49cee06f04bc3c065f57a3df7_187591_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="682" >
+</figure>
+<p>Now, the next plot isn’t going to look that much different but it is–I promise. Instead of predicting wOBA I predicted the actual run values of each outcome, like the numbers I showed above. So this is what run value by exit velocity and launch angle looks like when we factor in all possible hitter outcomes.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/predicted_run_value_hue92fbee679114482048d004a4dbd4c4f_184062_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="682" >
+</figure>
+<p>It looks exactly the same at first. But if you take the difference between the two types of run values, the biases of xwOBA become much more apparent:</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/run_value_diff_hu6a72f516fd479a7951bca101f9603c66_401656_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="673" >
+</figure>
+<p>As you can see, batted balls in the ground ball range of exit velocities and launch angles are overvalued by wOBA by about 0.05 runs. This may not seem like a lot, but when you consider that your regular qualified starting pitcher has about 500 balls in play over the course of a full season, it quickly begins to add up. Similarly, groundball pitchers work to keep the ball out of the air, thereby limiting sacrifice flies. This strategy becomes even more valuable considering that wOBA undervalues the importance of fly balls within this category of batted balls, which makes ground balls more valuable in comparison.</p>
+<p>Last and probably least, the value of a bunt improves slightly. I think it’s pretty amusing that some of the trends away from “small ball”&ndash;good up-the-middle defense, keeping the ball in the infield, and less bunting can be attributed to using wOBA and wRC+ (a rescaled and park and era-adjusted version of wOBA) as our primary stats to measure offense in recent years.</p>
+<p>Taking the same nearest-neighbor approach and using it to predict the most likely pitch type based on exit velocity and launch angle yields another interesting visualization. Sinkers are the most common pitch type in the bucket of exit velocities and launch angles that wOBA undervalues most. This makes intuitive sense because a good sinker is a hard pitch to hit in the air and it is a weapon often leaned on by pitchers looking to induce a double play.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/pitch_type_buckets_hufdc9b43180e8bed3908870f33d8cc9b2_70990_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="660" >
+</figure>
+<p>So there you have it. Now we understand why OPS, a stat that combines two different metrics–OBP and SLG–with completely different denominators, is still roughly equivalent to wOBA in its effectiveness at predicting runs scored.</p>
+<h2 id="towards-a-new-metric-and-conclusion">Towards a New Metric and Conclusion</h2>
+<p>In my next article, I will introduce a new version of xERA that accounts for the biases present in xwOBA. I’ve always felt like xERA should perform like a more accurate version of FIP, and with these improvements I think we will get there.</p>
+<p>As a preview, here are this year’s leaders of predicted run value (per batter faced, min. 100IP).</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/xrv_leaders_hudadf56fc747639a3c268b7d1028c1b94_327111_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="569" >
+</figure>
+<p>There’s still some work to be done in order to convert it to an ERA scale, but I like the results so far. Compared to xERA, there are some noticeable changes. Kevin Gausman moves from 24th to 2nd, Zac Gallen moves from 37th to 6th, and Marlins sinker-baller Braxton Garrett moves from 70th all the way to 10th.</p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<figure class='mb-5 flex justify-center'>
+    <img src="/posts/fixing-xwoba/xera_leaders_hu1f5766ff83d0466712686dfd6d004fd5_563533_800x800_fit_q75_h2_box_3.webp" alt="how are u" width="800" height="429" >
+</figure>
+<p>So, what&rsquo;s the takeaway from all this digging into wOBA and xwOBA? They’re useful stats, but they&rsquo;ve got some correctable blind spots, especially when it comes to ground balls and double plays. If you&rsquo;re trying to get the full picture of a player&rsquo;s skills, these metrics might not give you everything you need. Baseball is a complex game, and capturing all of its intricacies in a single number is a tall task.</p>
+
+    </section>
+    
+    
+    
+
+    
+    
+
+    <footer>
+        
+
+    </footer>
+</article>
+
+        </div><footer class="pt-5 pb-10 grid gap-3 sm:grid-cols-2">
+    <div class="text-xs font-semibold text-gray-500 order-2 sm:order-1 ">
+    © 2023 — <a class="hover:text-gray-500" href="https://sam-walsh.github.io/">Sam Walsh&#39;s Blog</a> <span class=" font-normal ">with</span> <a class="hover:text-gray-500" href="https://github.com/nixentric/Lowkey-Hugo-Theme" target="_blank" rel="noopener noreferrer">Lowkey</a>
+</div>
+    <div class="text-xs font-semibold text-gray-500 order-1 sm:order-2">
+    <ul class="flex sm:justify-end gap-5">
+    
+    </ul>
+</div>
+</footer></body>
+</html>
